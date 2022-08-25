@@ -1,4 +1,4 @@
-import randomIntFromInterval from "./generateNumberFromInterval";
+import randomIntFromInterval from './generateNumberFromInterval';
 
 const generateAdditionalPriceBasedOnDaysLeftTillFlight = (
   noOfDaysTillFlight

@@ -1,6 +1,6 @@
-import computeDistance from "./computeDistance";
-import generatePriceBasedOnDistance from "./generatePriceBasedOnDistance";
-import generateAdditionalPriceBasedOnDaysLeftTillFlight from "./generateAdditionalPriceBasedOnDaysLeftTillFlight";
+import computeDistance from './computeDistance';
+import generatePriceBasedOnDistance from './generatePriceBasedOnDistance';
+import generateAdditionalPriceBasedOnDaysLeftTillFlight from './generateAdditionalPriceBasedOnDaysLeftTillFlight';
 
 const generatePrice = (noOfDaysTillFlight, prevLat, prevLong, lat, long) => {
   const additionalPrice =

@@ -1,14 +1,14 @@
-import React, { useContext } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
-import { Divider } from "react-native-elements";
+import React, { useContext } from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
+import { Divider } from 'react-native-elements';
 
-import RecommendedScreenCard from "../../components/recommendedScreen/RecommendedScreenCard";
-import EstimatedPrices from "../../components/common/EstimatedPrices";
+import EstimatedPrices from '../../components/common/EstimatedPrices';
+import RecommendedScreenCard from '../../components/recommendedScreen/RecommendedScreenCard';
 
-import { Context as FlightsContext } from "../../context/FlightsContext";
-import { Context as UserContext } from "../../context/UserContext";
+import { Context as FlightsContext } from '../../context/FlightsContext';
+import { Context as UserContext } from '../../context/UserContext';
 
-import colors from "../../../global/colors";
+import colors from '../../../global/colors';
 
 const RecommendedScreen = ({ navigation, route }) => {
   const {
@@ -19,17 +19,17 @@ const RecommendedScreen = ({ navigation, route }) => {
       quickGetaways,
       longerTrips,
       lastMinute,
-      planAhead,
-    },
+      planAhead
+    }
   } = useContext(FlightsContext);
   const {
-    state: { currentCurrency },
+    state: { currentCurrency }
   } = useContext(UserContext);
 
   const { searchType } = route.params;
 
   const goToCitiesScreen = (title, country_iso2) => {
-    navigation.navigate("CitiesScreen", { title, country_iso2 });
+    navigation.navigate('CitiesScreen', { title, country_iso2 });
   };
 
   return (
@@ -38,19 +38,19 @@ const RecommendedScreen = ({ navigation, route }) => {
         showsVerticalScrollIndicator={false}
         decelerationRat={0.8}
         data={
-          searchType === "recommended"
+          searchType === 'recommended'
             ? recommendedCountries
-            : searchType === "popular_destinations"
+            : searchType === 'popular_destinations'
             ? popularDestinations
-            : searchType === "quick_getaways"
+            : searchType === 'quick_getaways'
             ? quickGetaways
-            : searchType === "longer_trips"
+            : searchType === 'longer_trips'
             ? longerTrips
-            : searchType === "last_minute"
+            : searchType === 'last_minute'
             ? lastMinute
-            : searchType === "plan_ahead"
+            : searchType === 'plan_ahead'
             ? planAhead
-            : searchType === "explore_everywhere"
+            : searchType === 'explore_everywhere'
             ? exploreEverywhere
             : null
         }
@@ -62,7 +62,7 @@ const RecommendedScreen = ({ navigation, route }) => {
                 <EstimatedPrices />
                 <Divider
                   style={{
-                    backgroundColor: colors.BLACK,
+                    backgroundColor: colors.BLACK
                   }}
                 />
               </View>
@@ -83,11 +83,11 @@ const RecommendedScreen = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    alignItems: 'center',
     backgroundColor: colors.BG_COLOR,
-    justifyContent: "center",
-    alignItems: "center",
-  },
+    flex: 1,
+    justifyContent: 'center'
+  }
 });
 
 export default RecommendedScreen;

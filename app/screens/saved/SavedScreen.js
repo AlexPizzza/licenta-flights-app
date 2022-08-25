@@ -1,25 +1,25 @@
-import React, { useEffect, useContext, useState } from "react";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import React, { useContext, useEffect, useState } from 'react';
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import CustomSeeFlightModal from "../../components/common/CustomSeeFlightModal";
-import RoundTripCard from "../../components/saved/RoundTripCard";
-import OneWayCard from "../../components/saved/OneWayCard";
+import CustomSeeFlightModal from '../../components/common/CustomSeeFlightModal';
+import OneWayCard from '../../components/saved/OneWayCard';
+import RoundTripCard from '../../components/saved/RoundTripCard';
 
-import { Context as FlightsContext } from "../../context/FlightsContext";
-import { Context as UserContext } from "../../context/UserContext";
+import { Context as FlightsContext } from '../../context/FlightsContext';
+import { Context as UserContext } from '../../context/UserContext';
 
-import noSavedFlights from "../../../assets/no_saved_flights.png";
+import noSavedFlights from '../../../assets/no_saved_flights.png';
 
-import colors from "../../../global/colors";
-import globalStyles from "../../../global/globalStyles";
+import colors from '../../../global/colors';
+import globalStyles from '../../../global/globalStyles';
 
 const SavedScreen = () => {
   const {
     state: { savedFlights, flightToShow },
-    addFlightToShow,
+    addFlightToShow
   } = useContext(FlightsContext);
   const {
-    state: { currentCurrency },
+    state: { currentCurrency }
   } = useContext(UserContext);
 
   const [seeFlightModalVisible, setSeeFlightModalVisible] = useState(false);
@@ -33,7 +33,7 @@ const SavedScreen = () => {
       let roundTrip = [];
       let oneWay = [];
       savedFlights.forEach((flight) => {
-        if (flight.data.hasOwnProperty("return")) {
+        if (Object.prototype.hasOwnProperty.call(flight.data, 'return')) {
           roundTrip.push(flight);
         } else {
           oneWay.push(flight);
@@ -78,7 +78,7 @@ const SavedScreen = () => {
             <Text style={styles.subHeaderTextStyle}>Round trip flights</Text>
             {roundTripFlights.map((item, index) => (
               <RoundTripCard
-                key={"key" + index}
+                key={'key' + index}
                 item={item.data}
                 onPress={() => {
                   addFlightToShow(item);
@@ -95,7 +95,7 @@ const SavedScreen = () => {
             <Text style={styles.subHeaderTextStyle}>One way flights</Text>
             {oneWayFlights.map((item, index) => (
               <OneWayCard
-                key={"key" + index}
+                key={'key' + index}
                 item={item.data}
                 onPress={() => {
                   addFlightToShow(item);
@@ -113,45 +113,45 @@ const SavedScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: colors.BG_COLOR,
+    flex: 1
   },
   headerContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 20,
     borderBottomWidth: 1,
-  },
-  imageView: {
-    alignItems: "center",
-    justifyContent: "center",
-    marginVertical: 10,
-    ...globalStyles.marginHorizontal,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 20
   },
   imageStyle: {
-    width: "100%",
-    height: undefined,
     aspectRatio: 4 / 5,
+    height: undefined,
+    width: '100%'
+  },
+  imageView: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 10,
+    ...globalStyles.marginHorizontal
   },
   noSavedFlightsText: {
-    ...globalStyles.boldText,
-  },
-  subHeaderContainer: {
-    ...globalStyles.marginHorizontal,
-    marginBottom: 4,
-  },
-  savedFlightsHeaderText: {
-    ...globalStyles.headerBoldText,
-    fontSize: 40,
+    ...globalStyles.boldText
   },
   savedFlightsContainer: {
     marginVertical: 10,
+    ...globalStyles.marginHorizontal
+  },
+  savedFlightsHeaderText: {
+    ...globalStyles.headerBoldText,
+    fontSize: 40
+  },
+  subHeaderContainer: {
     ...globalStyles.marginHorizontal,
+    marginBottom: 4
   },
   subHeaderTextStyle: {
     ...globalStyles.headerBoldText,
-    fontSize: 32,
-  },
+    fontSize: 32
+  }
 });
 
 export default SavedScreen;

@@ -1,118 +1,118 @@
-import createDataContext from "./createDataContext";
-import { auth, db } from "../config/firebase";
+import createDataContext from './createDataContext';
+import { auth, db } from '../config/firebase';
 
-import generatePrice from "../functions/generatePrice";
-import sorter from "../functions/sorter";
+import generatePrice from '../functions/generatePrice';
+import sorter from '../functions/sorter';
 
 const flightsReducer = (state, action) => {
   switch (action.type) {
-    case "add_explore_everywhere_countries":
+    case 'add_explore_everywhere_countries':
       return {
         ...state,
-        exploreEverywhere: action.payload,
+        exploreEverywhere: action.payload
       };
-    case "add_recommended_countries":
+    case 'add_recommended_countries':
       return {
         ...state,
-        recommendedCountries: action.payload,
+        recommendedCountries: action.payload
       };
-    case "add_popular_destinations_countries":
+    case 'add_popular_destinations_countries':
       return {
         ...state,
-        popularDestinations: action.payload,
+        popularDestinations: action.payload
       };
-    case "add_quick_getaways_countries":
+    case 'add_quick_getaways_countries':
       return {
         ...state,
-        quickGetaways: action.payload,
+        quickGetaways: action.payload
       };
-    case "add_longer_trips_countries":
+    case 'add_longer_trips_countries':
       return {
         ...state,
-        longerTrips: action.payload,
+        longerTrips: action.payload
       };
-    case "add_last_minute_countries":
+    case 'add_last_minute_countries':
       return {
         ...state,
-        lastMinute: action.payload,
+        lastMinute: action.payload
       };
-    case "add_plan_ahead_countries":
+    case 'add_plan_ahead_countries':
       return {
         ...state,
-        planAhead: action.payload,
+        planAhead: action.payload
       };
-    case "add_cities":
+    case 'add_cities':
       return {
         ...state,
         cities: {
           ...state.cities,
-          [action.attribute]: action.payload,
-        },
+          [action.attribute]: action.payload
+        }
       };
-    case "clear_cities":
+    case 'clear_cities':
       return {
         ...state,
-        cities: action.payload,
+        cities: action.payload
       };
-    case "add_locations":
+    case 'add_locations':
       return {
         ...state,
-        locations: action.payload,
+        locations: action.payload
       };
-    case "clear_locations":
+    case 'clear_locations':
       return {
         ...state,
-        locations: action.payload,
+        locations: action.payload
       };
-    case "add_user_coords":
+    case 'add_user_coords':
       return {
         ...state,
-        userCoords: action.payload,
+        userCoords: action.payload
       };
-    case "add_user_date":
+    case 'add_user_date':
       return {
         ...state,
-        date: action.payload,
+        date: action.payload
       };
-    case "add_flights_round_trip":
+    case 'add_flights_round_trip':
       return {
         ...state,
-        flightsRoundTrip: [...state.flightsRoundTrip, action.payload],
+        flightsRoundTrip: [...state.flightsRoundTrip, action.payload]
       };
-    case "add_flights_one_way":
+    case 'add_flights_one_way':
       return {
         ...state,
-        flightsOneWay: [...state.flightsOneWay, action.payload],
+        flightsOneWay: [...state.flightsOneWay, action.payload]
       };
-    case "add_where_to_city":
+    case 'add_where_to_city':
       return {
         ...state,
-        whereToCity: action.payload,
+        whereToCity: action.payload
       };
-    case "add_flight_to_saved_flights":
+    case 'add_flight_to_saved_flights':
       return {
         ...state,
-        savedFlights: [...state.savedFlights, action.payload],
+        savedFlights: [...state.savedFlights, action.payload]
       };
-    case "get_saved_flights":
+    case 'get_saved_flights':
       return {
         ...state,
-        savedFlights: action.payload,
+        savedFlights: action.payload
       };
-    case "delete_flight_from_saved_flights":
+    case 'delete_flight_from_saved_flights':
       return {
         ...state,
-        savedFlights: action.payload,
+        savedFlights: action.payload
       };
-    case "get_statistics_flights":
+    case 'get_statistics_flights':
       return {
         ...state,
-        statisticsFlights: action.payload,
+        statisticsFlights: action.payload
       };
-    case "add_flight_to_show":
+    case 'add_flight_to_show':
       return {
         ...state,
-        flightToShow: action.payload,
+        flightToShow: action.payload
       };
     default:
       return state;
@@ -122,13 +122,13 @@ const flightsReducer = (state, action) => {
 const getRecommendedCountries = (dispatch) => async () => {
   try {
     let list = [];
-    const snapshot = await db.collection("flights_recommended").get();
+    const snapshot = await db.collection('flights_recommended').get();
 
     snapshot.forEach((doc) => {
       list.push({ id: doc.id, data: doc.data() });
     });
 
-    dispatch({ type: "add_recommended_countries", payload: list });
+    dispatch({ type: 'add_recommended_countries', payload: list });
   } catch (error) {
     console.log(error);
   }
@@ -137,46 +137,46 @@ const getRecommendedCountries = (dispatch) => async () => {
 const getCountriesBySearchType = (dispatch) => async () => {
   try {
     let list = [];
-    let snapshot = await db.collection("flights_explore_everywhere").get();
+    let snapshot = await db.collection('flights_explore_everywhere').get();
     snapshot.forEach((doc) => {
       list.push({ id: doc.id, data: doc.data() });
     });
-    dispatch({ type: "add_explore_everywhere_countries", payload: list });
+    dispatch({ type: 'add_explore_everywhere_countries', payload: list });
 
     list = [];
-    snapshot = await db.collection("flights_popular_destinations").get();
+    snapshot = await db.collection('flights_popular_destinations').get();
     snapshot.forEach((doc) => {
       list.push({ id: doc.id, data: doc.data() });
     });
-    dispatch({ type: "add_popular_destinations_countries", payload: list });
+    dispatch({ type: 'add_popular_destinations_countries', payload: list });
 
     list = [];
-    snapshot = await db.collection("flights_quick_getaways").get();
+    snapshot = await db.collection('flights_quick_getaways').get();
     snapshot.forEach((doc) => {
       list.push({ id: doc.id, data: doc.data() });
     });
-    dispatch({ type: "add_quick_getaways_countries", payload: list });
+    dispatch({ type: 'add_quick_getaways_countries', payload: list });
 
     list = [];
-    snapshot = await db.collection("flights_longer_trips").get();
+    snapshot = await db.collection('flights_longer_trips').get();
     snapshot.forEach((doc) => {
       list.push({ id: doc.id, data: doc.data() });
     });
-    dispatch({ type: "add_longer_trips_countries", payload: list });
+    dispatch({ type: 'add_longer_trips_countries', payload: list });
 
     list = [];
-    snapshot = await db.collection("flights_last_minute").get();
+    snapshot = await db.collection('flights_last_minute').get();
     snapshot.forEach((doc) => {
       list.push({ id: doc.id, data: doc.data() });
     });
-    dispatch({ type: "add_last_minute_countries", payload: list });
+    dispatch({ type: 'add_last_minute_countries', payload: list });
 
     list = [];
-    snapshot = await db.collection("flights_plan_ahead").get();
+    snapshot = await db.collection('flights_plan_ahead').get();
     snapshot.forEach((doc) => {
       list.push({ id: doc.id, data: doc.data() });
     });
-    dispatch({ type: "add_plan_ahead_countries", payload: list });
+    dispatch({ type: 'add_plan_ahead_countries', payload: list });
   } catch (error) {
     console.log(error);
   }
@@ -205,8 +205,8 @@ const addPriceToCountries =
     });
     exploreEverywhere.sort(sorter);
     dispatch({
-      type: "add_explore_everywhere_countries",
-      payload: exploreEverywhere,
+      type: 'add_explore_everywhere_countries',
+      payload: exploreEverywhere
     });
 
     recommendedCountries.forEach((element) => {
@@ -220,8 +220,8 @@ const addPriceToCountries =
     });
     recommendedCountries.sort(sorter);
     dispatch({
-      type: "add_recommended_countries",
-      payload: recommendedCountries,
+      type: 'add_recommended_countries',
+      payload: recommendedCountries
     });
 
     popularDestinations.forEach((element) => {
@@ -235,8 +235,8 @@ const addPriceToCountries =
     });
     popularDestinations.sort(sorter);
     dispatch({
-      type: "add_popular_destinations_countries",
-      payload: popularDestinations,
+      type: 'add_popular_destinations_countries',
+      payload: popularDestinations
     });
 
     quickGetaways.forEach((element) => {
@@ -249,7 +249,7 @@ const addPriceToCountries =
       );
     });
     quickGetaways.sort(sorter);
-    dispatch({ type: "add_quick_getaways_countries", payload: quickGetaways });
+    dispatch({ type: 'add_quick_getaways_countries', payload: quickGetaways });
 
     longerTrips.forEach((element) => {
       element.data.price = generatePrice(
@@ -261,7 +261,7 @@ const addPriceToCountries =
       );
     });
     longerTrips.sort(sorter);
-    dispatch({ type: "add_longer_trips_countries", payload: longerTrips });
+    dispatch({ type: 'add_longer_trips_countries', payload: longerTrips });
 
     lastMinute.forEach((element) => {
       element.data.price = generatePrice(
@@ -273,7 +273,7 @@ const addPriceToCountries =
       );
     });
     lastMinute.sort(sorter);
-    dispatch({ type: "add_last_minute_countries", payload: lastMinute });
+    dispatch({ type: 'add_last_minute_countries', payload: lastMinute });
 
     planAhead.forEach((element) => {
       element.data.price = generatePrice(
@@ -285,52 +285,52 @@ const addPriceToCountries =
       );
     });
     planAhead.sort(sorter);
-    dispatch({ type: "add_plan_ahead_countries", payload: planAhead });
+    dispatch({ type: 'add_plan_ahead_countries', payload: planAhead });
   };
 
 const getLocations = (dispatch) => async (text) => {
   const toTitleCase = (phrase) => {
     return phrase
       .toLowerCase()
-      .split(" ")
+      .split(' ')
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
+      .join(' ');
   };
 
   const newText = toTitleCase(text);
 
-  const airportsRef = db.collection("flights_airports");
+  const airportsRef = db.collection('flights_airports');
 
   const airports = await airportsRef
-    .where("airport_name", ">=", newText)
-    .where("airport_name", "<=", newText + "\uf8ff")
+    .where('airport_name', '>=', newText)
+    .where('airport_name', '<=', newText + '\uf8ff')
     .get();
   const cities = await airportsRef
-    .where("city_name", ">=", newText)
-    .where("city_name", "<=", newText + "\uf8ff")
+    .where('city_name', '>=', newText)
+    .where('city_name', '<=', newText + '\uf8ff')
     .get();
   const countries = await airportsRef
-    .where("country_name", ">=", newText)
-    .where("country_name", "<=", newText + "\uf8ff")
+    .where('country_name', '>=', newText)
+    .where('country_name', '<=', newText + '\uf8ff')
     .get();
 
   let list = [];
   airports.forEach((doc) => {
     list.push({
       id: doc.id,
-      data: doc.data(),
+      data: doc.data()
     });
   });
   cities.forEach((doc) => {
     list.push({
       id: doc.id,
-      data: doc.data(),
+      data: doc.data()
     });
   });
   countries.forEach((doc) => {
     list.push({
       id: doc.id,
-      data: doc.data(),
+      data: doc.data()
     });
   });
 
@@ -342,11 +342,11 @@ const getLocations = (dispatch) => async (text) => {
     return !duplicate;
   });
 
-  dispatch({ type: "add_locations", payload: locationsList });
+  dispatch({ type: 'add_locations', payload: locationsList });
 };
 
 const clearLocations = (dispatch) => () => {
-  dispatch({ type: "clear_locations", payload: [] });
+  dispatch({ type: 'clear_locations', payload: [] });
 };
 
 const addPriceToRecommendedCountries =
@@ -361,16 +361,16 @@ const addPriceToRecommendedCountries =
       );
     });
 
-    dispatch({ type: "add_recommended_countries", payload: countries });
+    dispatch({ type: 'add_recommended_countries', payload: countries });
   };
 
 const addCities =
   (dispatch) => async (country_iso2, userCoords, citiesContext) => {
-    if (!citiesContext.hasOwnProperty(country_iso2)) {
+    if (!Object.prototype.hasOwnProperty.call(citiesContext, 'country_iso2')) {
       let citiesList = [];
 
-      const citiesRef = db.collection("flights_cities_" + country_iso2);
-      const cities = await citiesRef.orderBy("image", "asc").get();
+      const citiesRef = db.collection('flights_cities_' + country_iso2);
+      const cities = await citiesRef.orderBy('image', 'asc').get();
       cities.forEach((doc) => {
         citiesList.push({ id: doc.id, data: doc.data() });
       });
@@ -387,20 +387,20 @@ const addCities =
 
       citiesList.sort(sorter);
       dispatch({
-        type: "add_cities",
+        type: 'add_cities',
         attribute: country_iso2,
-        payload: citiesList,
+        payload: citiesList
       });
     }
   };
 
 const addUserCoordinates = (dispatch) => (coords) => {
-  dispatch({ type: "add_user_coords", payload: coords });
+  dispatch({ type: 'add_user_coords', payload: coords });
 };
 
 const getDate = (dispatch) => () => {
   const date = new Date().toString();
-  dispatch({ type: "add_user_date", payload: date });
+  dispatch({ type: 'add_user_date', payload: date });
 };
 
 const addFlightsRoundTrip =
@@ -412,7 +412,7 @@ const addFlightsRoundTrip =
     flights.departure_date = departureDate;
     flights.arrival_date = arrivalDate;
     flights.flights_list = flightsList;
-    dispatch({ type: "add_flights_round_trip", payload: flights });
+    dispatch({ type: 'add_flights_round_trip', payload: flights });
   };
 
 const addFlightsOneWay =
@@ -422,58 +422,58 @@ const addFlightsOneWay =
     flights.arrival_city = arrivalCity;
     flights.departure_date = departureDate;
     flights.flights_list = flightsList;
-    dispatch({ type: "add_flights_one_way", payload: flights });
+    dispatch({ type: 'add_flights_one_way', payload: flights });
   };
 
 const addWhereToCity = (dispatch) => (whereToCity) => {
-  dispatch({ type: "add_where_to_city", payload: whereToCity });
+  dispatch({ type: 'add_where_to_city', payload: whereToCity });
 };
 
 const addFlightToSavedFlights =
   (dispatch) => async (flight, token, setFlightToShow) => {
-    if (!flight.hasOwnProperty("data")) {
+    if (!Object.prototype.hasOwnProperty.call(flight, 'data')) {
       flight.user_token = token;
     }
 
-    const documentRef = db.collection("flights_saved_flights").doc();
+    const documentRef = db.collection('flights_saved_flights').doc();
     const id = documentRef.id;
-    if (flight.hasOwnProperty("data")) {
+    if (Object.prototype.hasOwnProperty.call(flight, 'data')) {
       await documentRef.set(flight.data);
     } else {
       await documentRef.set(flight);
     }
 
-    if (flight.hasOwnProperty("data")) {
+    if (Object.prototype.hasOwnProperty.call(flight, 'data')) {
       flight.id = id;
-      dispatch({ type: "add_flight_to_saved_flights", payload: flight });
+      dispatch({ type: 'add_flight_to_saved_flights', payload: flight });
       setFlightToShow(flight);
     } else {
       const savedFlight = {
         id: id,
-        data: flight,
+        data: flight
       };
 
-      dispatch({ type: "add_flight_to_saved_flights", payload: savedFlight });
+      dispatch({ type: 'add_flight_to_saved_flights', payload: savedFlight });
       setFlightToShow(savedFlight);
     }
   };
 
 const deleteFlightFromSavedFlights =
   (dispatch) => async (flight, savedFlights) => {
-    await db.collection("flights_saved_flights").doc(flight.id).delete();
+    await db.collection('flights_saved_flights').doc(flight.id).delete();
 
     const newSavedFlights = savedFlights.filter(
       (savedFlight) => savedFlight.id !== flight.id
     );
     dispatch({
-      type: "delete_flight_from_saved_flights",
-      payload: newSavedFlights,
+      type: 'delete_flight_from_saved_flights',
+      payload: newSavedFlights
     });
   };
 
 const getSavedFlights = (dispatch) => async () => {
   if (auth.currentUser !== null) {
-    let snapshot = await db.collection("flights_saved_flights").get();
+    let snapshot = await db.collection('flights_saved_flights').get();
     if (!snapshot.empty) {
       let list = [];
       let flightsToDelete = [];
@@ -496,22 +496,22 @@ const getSavedFlights = (dispatch) => async () => {
 
       if (flightsToDelete.length !== 0) {
         flightsToDelete.forEach((flight) =>
-          db.collection("flights_saved_flights").doc(flight.id).delete()
+          db.collection('flights_saved_flights').doc(flight.id).delete()
         );
       }
-      dispatch({ type: "get_saved_flights", payload: list });
+      dispatch({ type: 'get_saved_flights', payload: list });
     }
   }
 };
 
 const getStatisticsFlights = (dispatch) => async () => {
   let list = [];
-  let snapshot = await db.collection("flights_statistics").get();
+  let snapshot = await db.collection('flights_statistics').get();
   snapshot.forEach((doc) => {
     list.push({ id: doc.id, data: doc.data() });
   });
 
-  dispatch({ type: "get_statistics_flights", payload: list });
+  dispatch({ type: 'get_statistics_flights', payload: list });
 };
 
 const addToStatistics = (dispatch) => async (departureCity, arrivalCity) => {
@@ -521,7 +521,7 @@ const addToStatistics = (dispatch) => async (departureCity, arrivalCity) => {
   let searches;
   let flightIndex = -1;
   let i = 0;
-  let snapshot = await db.collection("flights_statistics").get();
+  let snapshot = await db.collection('flights_statistics').get();
   snapshot.forEach((doc) => {
     list.push({ id: doc.id, data: doc.data() });
     if (
@@ -540,22 +540,22 @@ const addToStatistics = (dispatch) => async (departureCity, arrivalCity) => {
   });
 
   if (!isInDatabase) {
-    const documentRef = db.collection("flights_statistics").doc();
+    const documentRef = db.collection('flights_statistics').doc();
     const id = documentRef.id;
     const flight = {
       first_city: {
         city_name: departureCity.city_name,
         city_iata_code: departureCity.city_iata_code,
         country_iso2: departureCity.country_iso2,
-        country_name: departureCity.country_name,
+        country_name: departureCity.country_name
       },
       searches: 1,
       second_city: {
         city_name: arrivalCity.city_name,
         city_iata_code: arrivalCity.city_iata_code,
         country_iso2: arrivalCity.country_iso2,
-        country_name: arrivalCity.country_name,
-      },
+        country_name: arrivalCity.country_name
+      }
     };
     await documentRef.set(flight);
     list.push({ id: id, data: flight });
@@ -563,16 +563,16 @@ const addToStatistics = (dispatch) => async (departureCity, arrivalCity) => {
     searches += 1;
     list[flightIndex].data.searches = searches;
     await db
-      .collection("flights_statistics")
+      .collection('flights_statistics')
       .doc(documentId)
       .update({ searches: searches });
   }
 
-  dispatch({ type: "get_statistics_flights", payload: list });
+  dispatch({ type: 'get_statistics_flights', payload: list });
 };
 
 const addFlightToShow = (dispatch) => (flight) => {
-  dispatch({ type: "add_flight_to_show", payload: flight });
+  dispatch({ type: 'add_flight_to_show', payload: flight });
 };
 
 export const { Context, Provider } = createDataContext(
@@ -595,7 +595,7 @@ export const { Context, Provider } = createDataContext(
     getCountriesBySearchType,
     getLocations,
     getRecommendedCountries,
-    getStatisticsFlights,
+    getStatisticsFlights
   },
   {
     cities: {},
@@ -615,6 +615,6 @@ export const { Context, Provider } = createDataContext(
     whereToCity: null,
     savedFlights: [],
     statisticsFlights: [],
-    flightToShow: null,
+    flightToShow: null
   }
 );

@@ -1,44 +1,44 @@
-import React, { useContext } from "react";
-import { StatusBar, StyleSheet, View } from "react-native";
-import AppIntroSlider from "react-native-app-intro-slider";
+import React, { useContext } from 'react';
+import { StatusBar, StyleSheet, View } from 'react-native';
+import AppIntroSlider from 'react-native-app-intro-slider';
 
-import Slide from "../../components/welcome/Slide";
-import Button from "../../components/welcome/Button";
+import Button from '../../components/welcome/Button';
+import Slide from '../../components/welcome/Slide';
 
-import { Context as UserContext } from "../../context/UserContext";
+import { Context as UserContext } from '../../context/UserContext';
 
-import colors from "../../../global/colors";
+import colors from '../../../global/colors';
 
-import firstImage from "../../../assets/welcome/1.png";
-import secondImage from "../../../assets/welcome/2.png";
-import thirdImage from "../../../assets/welcome/3.png";
-import fourthImage from "../../../assets/welcome/4.png";
+import firstImage from '../../../assets/welcome/1.png';
+import secondImage from '../../../assets/welcome/2.png';
+import thirdImage from '../../../assets/welcome/3.png';
+import fourthImage from '../../../assets/welcome/4.png';
 
 const slides = [
   {
-    key: "1",
-    title: "Welcome to Fly!",
-    description: "",
-    image: firstImage,
+    key: '1',
+    title: 'Welcome to Fly!',
+    description: '',
+    image: firstImage
   },
   {
-    key: "2",
-    title: "Time to travel!",
-    description: "View the cheapest flights through our app.",
-    image: secondImage,
+    key: '2',
+    title: 'Time to travel!',
+    description: 'View the cheapest flights through our app.',
+    image: secondImage
   },
   {
-    key: "3",
-    title: "Book a flight!",
-    description: "Find the best flight for your next travel.",
-    image: thirdImage,
+    key: '3',
+    title: 'Book a flight!',
+    description: 'Find the best flight for your next travel.',
+    image: thirdImage
   },
   {
-    key: "4",
-    title: "Getting started is easy!",
-    description: "Create an account and enjoy your next vacation!",
-    image: fourthImage,
-  },
+    key: '4',
+    title: 'Getting started is easy!',
+    description: 'Create an account and enjoy your next vacation!',
+    image: fourthImage
+  }
 ];
 
 const WelcomeScreen = () => {
@@ -46,7 +46,7 @@ const WelcomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar translucent backgroundColor="transparent" />
+      <StatusBar translucent backgroundColor='transparent' />
 
       <AppIntroSlider
         data={slides}
@@ -56,9 +56,9 @@ const WelcomeScreen = () => {
         showNextButton
         keyExtractor={(item) => item.key}
         renderItem={({ item }) => <Slide item={item} />}
-        renderSkipButton={() => <Button title="Skip" />}
-        renderNextButton={() => <Button title="Next" />}
-        renderDoneButton={() => <Button title="Done" />}
+        renderSkipButton={() => <Button title='Skip' />}
+        renderNextButton={() => <Button title='Next' />}
+        renderDoneButton={() => <Button title='Done' />}
         onDone={() => {
           setValueIsFirstTime(false);
         }}
@@ -68,18 +68,18 @@ const WelcomeScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.BG_COLOR,
-  },
   activeDotStyle: {
     backgroundColor: colors.PURPLE,
-    marginHorizontal: 8,
+    marginHorizontal: 8
+  },
+  container: {
+    backgroundColor: colors.BG_COLOR,
+    flex: 1
   },
   dotStyle: {
     backgroundColor: colors.BLACK,
-    marginHorizontal: 8,
-  },
+    marginHorizontal: 8
+  }
 });
 
 export default WelcomeScreen;

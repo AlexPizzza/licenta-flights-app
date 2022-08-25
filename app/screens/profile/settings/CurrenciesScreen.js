@@ -1,17 +1,17 @@
-import React, { useContext } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { ListItem } from "react-native-elements";
-import Ripple from "react-native-material-ripple";
+import React, { useContext } from 'react';
+import { ScrollView, StyleSheet, Text } from 'react-native';
+import { ListItem } from 'react-native-elements';
+import Ripple from 'react-native-material-ripple';
 
-import { Context as UserContext } from "../../../context/UserContext";
+import { Context as UserContext } from '../../../context/UserContext';
 
-import colors from "../../../../global/colors";
-import globalStyles from "../../../../global/globalStyles";
+import colors from '../../../../global/colors';
+import globalStyles from '../../../../global/globalStyles';
 
 const CurrenciesScreen = ({ navigation }) => {
   const {
     state: { currencies },
-    changeCurrentCurrency,
+    changeCurrentCurrency
   } = useContext(UserContext);
 
   const changeCurrency = (item) => {
@@ -59,19 +59,19 @@ const CurrenciesScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: colors.BG_COLOR,
+    flex: 1
   },
   settingsHeaderText: {
     ...globalStyles.headerBoldText,
     ...globalStyles.marginHorizontal,
 
     fontSize: 40,
-    marginBottom: 16,
+    marginBottom: 16
   },
   title: {
-    ...globalStyles.normalText,
-  },
+    ...globalStyles.normalText
+  }
 });
 
 export default CurrenciesScreen;

@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useState } from 'react';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
 
-import Ripple from "react-native-material-ripple";
+import Ripple from 'react-native-material-ripple';
 
-import colors from "../../../global/colors";
-import globalStyles from "../../../global/globalStyles";
+import colors from '../../../global/colors';
+import globalStyles from '../../../global/globalStyles';
 
 const OneWayCard = ({ item, onPress, currency }) => {
-  const [departureDate, setDepartureDate] = useState("");
+  const [departureDate, setDepartureDate] = useState('');
 
   useEffect(() => {
     const splitDepartureDate = item.departure_date
       .toDate()
       .toString()
-      .split(" ");
+      .split(' ');
 
     const departureDateToShow =
       splitDepartureDate[0] +
-      ", " +
+      ', ' +
       splitDepartureDate[1] +
-      " " +
+      ' ' +
       splitDepartureDate[2] +
-      ", " +
+      ', ' +
       splitDepartureDate[3];
 
     setDepartureDate(departureDateToShow);
@@ -40,13 +40,13 @@ const OneWayCard = ({ item, onPress, currency }) => {
       <View style={styles.outerContainer}>
         <View style={styles.subHeaderContainer}>
           <Text style={[styles.subHeaderDateText, { color: colors.PURPLE }]}>
-            {"Departure date - "}
+            {'Departure date - '}
             {departureDate}
           </Text>
         </View>
 
         <View style={styles.innerContainer}>
-          <View style={{ flexDirection: "column" }}>
+          <View style={styles.flexDirectionColumn}>
             <Text style={styles.cityTextStyle}>
               {item.departure_city.city_name}
             </Text>
@@ -55,11 +55,11 @@ const OneWayCard = ({ item, onPress, currency }) => {
             </Text>
           </View>
 
-          <View style={{ marginHorizontal: 4 }}>
-            <Text style={styles.cityTextStyle}>{" - "}</Text>
+          <View style={styles.marginHorizontal}>
+            <Text style={styles.cityTextStyle}>{' - '}</Text>
           </View>
 
-          <View style={{ flexDirection: "column" }}>
+          <View style={styles.flexDirectionColumn}>
             <Text style={styles.cityTextStyle}>
               {item.arrival_city.city_name}
             </Text>
@@ -72,7 +72,7 @@ const OneWayCard = ({ item, onPress, currency }) => {
         <View style={styles.priceContainer}>
           <Text style={styles.priceTextStyle}>Ticket price: </Text>
           <Text style={styles.priceTextStyle}>
-            {Math.ceil(item.ticket_price / currency.rate / 5) * 5}{" "}
+            {Math.ceil(item.ticket_price / currency.rate / 5) * 5}{' '}
             {currency.currency_iso}
           </Text>
         </View>
@@ -81,49 +81,51 @@ const OneWayCard = ({ item, onPress, currency }) => {
   );
 };
 
-const { width, height } = Dimensions.get("window");
+const { height } = Dimensions.get('window');
 const styles = StyleSheet.create({
-  rippleContainer: {
-    height: height * 0.22,
-    marginVertical: 5,
-    padding: 10,
-    borderWidth: 1,
-    borderRadius: 16,
-  },
-  outerContainer: {
-    flexDirection: "column",
-  },
-  subHeaderContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  innerContainer: {
-    flexDirection: "row",
-    marginVertical: 5,
+  airportTextStyle: {
+    ...globalStyles.normalText,
+    color: colors.SEARCH_INPUT_TEXT
   },
   cityTextStyle: {
     ...globalStyles.boldText,
-    fontSize: 18,
+    fontSize: 18
   },
-  airportTextStyle: {
-    ...globalStyles.normalText,
-    color: colors.SEARCH_INPUT_TEXT,
+  flexDirectionColumn: {
+    flexDirection: 'column'
   },
-  subHeaderText: {
-    ...globalStyles.boldText,
-    fontSize: 20,
+  innerContainer: {
+    flexDirection: 'row',
+    marginVertical: 5
+  },
+  marginHorizontal: {
+    marginHorizontal: 4
+  },
+  outerContainer: {
+    flexDirection: 'column'
+  },
+  priceContainer: {
+    flexDirection: 'row',
+    marginTop: 10
+  },
+  priceTextStyle: {
+    ...globalStyles.boldText
+  },
+  rippleContainer: {
+    borderRadius: 16,
+    borderWidth: 1,
+    height: height * 0.22,
+    marginVertical: 5,
+    padding: 10
+  },
+  subHeaderContainer: {
+    alignItems: 'center',
+    flexDirection: 'row'
   },
   subHeaderDateText: {
     ...globalStyles.boldText,
-    fontSize: 18,
-  },
-  priceContainer: {
-    marginTop: 10,
-    flexDirection: "row",
-  },
-  priceTextStyle: {
-    ...globalStyles.boldText,
-  },
+    fontSize: 18
+  }
 });
 
 export default OneWayCard;

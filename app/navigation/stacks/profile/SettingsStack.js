@@ -1,31 +1,31 @@
-import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import SettingsScreen from "../../../screens/profile/SettingsScreen";
-import CurrenciesScreen from "../../../screens/profile/settings/CurrenciesScreen";
+import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
+import CurrenciesScreen from '../../../screens/profile/settings/CurrenciesScreen';
+import SettingsScreen from '../../../screens/profile/SettingsScreen';
 
 const Stack = createStackNavigator();
 
 const SettingsStack = () => {
   return (
-    <Stack.Navigator initialRouteName="Settings">
+    <Stack.Navigator initialRouteName='Settings'>
       <Stack.Screen
-        name="Settings"
+        name='Settings'
         component={SettingsScreen}
         options={{
           headerStyle: {
-            elevation: 0,
+            elevation: 0
           },
-          title: "",
+          title: ''
         }}
       />
       <Stack.Screen
-        name="Currencies"
+        name='Currencies'
         component={CurrenciesScreen}
         options={{
           headerStyle: {
-            elevation: 0,
+            elevation: 0
           },
-          title: "",
+          title: ''
         }}
       />
     </Stack.Navigator>

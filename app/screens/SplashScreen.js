@@ -1,20 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
-import { SafeAreaView, View } from "react-native";
-import AppLoading from "expo-app-loading";
-import { StatusBar } from "expo-status-bar";
+import AppLoading from 'expo-app-loading';
+import { StatusBar } from 'expo-status-bar';
+import React, { useContext, useEffect, useState } from 'react';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 
-import { Context as AuthContext } from "../context/AuthContext";
-import { Context as UserContext } from "../context/UserContext";
-import { Context as FlightsContext } from "../context/FlightsContext";
+import { Context as AuthContext } from '../context/AuthContext';
+import { Context as FlightsContext } from '../context/FlightsContext';
+import { Context as UserContext } from '../context/UserContext';
 
-import MainTabs from "../navigation/MainTabs";
-import Authentication from "../navigation/stacks/AuthenticationStack";
-import WelcomeScreen from "./authentication/WelcomeScreen";
+import MainTabs from '../navigation/MainTabs';
+import Authentication from '../navigation/stacks/AuthenticationStack';
+import WelcomeScreen from './authentication/WelcomeScreen';
 
-import globalStyles from "../../global/globalStyles";
+import globalStyles from '../../global/globalStyles';
 
-import useFonts from "../hooks/useFonts";
-import useLocation from "../hooks/useLocation";
+import useFonts from '../hooks/useFonts';
+import useLocation from '../hooks/useLocation';
 
 const SplashScreen = () => {
   const { state: authState, tryLocalSignIn } = useContext(AuthContext);
@@ -24,7 +24,7 @@ const SplashScreen = () => {
     addUserLocation,
     getUserRating,
     addCurrencies,
-    getCurrentCurrency,
+    getCurrentCurrency
   } = useContext(UserContext);
 
   const {
@@ -36,14 +36,14 @@ const SplashScreen = () => {
       longerTrips,
       lastMinute,
       planAhead,
-      userCoords,
+      userCoords
     },
     getRecommendedCountries,
     getCountriesBySearchType,
     addPriceToCountries,
     getSavedFlights,
     getDate,
-    getStatisticsFlights,
+    getStatisticsFlights
   } = useContext(FlightsContext);
 
   let [fontsLoaded] = useFonts();
@@ -96,8 +96,8 @@ const SplashScreen = () => {
   }
 
   return (
-    <View style={{ flex: 1 }}>
-      <StatusBar style="dark" backgroundColor="white" />
+    <View style={styles.container}>
+      <StatusBar style='dark' backgroundColor='white' />
 
       {userState.isFirstTime === null || userState.isFirstTime ? (
         <WelcomeScreen />
@@ -111,5 +111,11 @@ const SplashScreen = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  }
+});
 
 export default SplashScreen;

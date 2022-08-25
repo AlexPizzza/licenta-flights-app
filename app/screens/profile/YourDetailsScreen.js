@@ -1,25 +1,25 @@
-import React, { useContext } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from '@react-navigation/native';
+import React, { useContext } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
-import { Context as AuthContext } from "../../context/AuthContext";
+import { Context as AuthContext } from '../../context/AuthContext';
 
-import { ListItem } from "react-native-elements";
-import Ripple from "react-native-material-ripple";
+import { ListItem } from 'react-native-elements';
+import Ripple from 'react-native-material-ripple';
 
-import colors from "../../../global/colors";
-import globalStyles from "../../../global/globalStyles";
+import colors from '../../../global/colors';
+import globalStyles from '../../../global/globalStyles';
 
 const list = [
   {
-    title: "Login info",
+    title: 'Login info'
   },
   {
-    title: "Account management",
+    title: 'Account management'
   },
   {
-    title: "Log out",
-  },
+    title: 'Log out'
+  }
 ];
 
 const YourDetailsScreen = () => {
@@ -36,21 +36,21 @@ const YourDetailsScreen = () => {
             rippleColor={colors.PURPLE}
             rippleOpacity={0.8}
             onPress={() => {
-              if (item.title === "Log out") {
+              if (item.title === 'Log out') {
                 signout();
-              } else if (item.title === "Account management") {
-                navigation.navigate("AccountManagement");
-              } else if (item.title === "Login info") {
-                navigation.navigate("LoginInfo");
+              } else if (item.title === 'Account management') {
+                navigation.navigate('AccountManagement');
+              } else if (item.title === 'Login info') {
+                navigation.navigate('LoginInfo');
               }
             }}
             onLongPress={() => {
-              if (item.title === "Log out") {
+              if (item.title === 'Log out') {
                 signout();
-              } else if (item.title === "Account management") {
-                navigation.navigate("AccountManagement");
-              } else if (item.title === "Login info") {
-                navigation.navigate("LoginInfo");
+              } else if (item.title === 'Account management') {
+                navigation.navigate('AccountManagement');
+              } else if (item.title === 'Login info') {
+                navigation.navigate('LoginInfo');
               }
             }}
             delayLongPress={150}
@@ -75,21 +75,21 @@ const YourDetailsScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: colors.BG_COLOR,
+    flex: 1
   },
   subContainer: {
-    paddingLeft: globalStyles.marginHorizontal.value,
+    paddingLeft: globalStyles.marginHorizontal.value
+  },
+  title: {
+    ...globalStyles.normalText
   },
   yourDetailsHeaderText: {
     ...globalStyles.headerBoldText,
     fontSize: 40,
     ...globalStyles.marginHorizontal,
-    marginBottom: 16,
-  },
-  title: {
-    ...globalStyles.normalText,
-  },
+    marginBottom: 16
+  }
 });
 
 export default YourDetailsScreen;

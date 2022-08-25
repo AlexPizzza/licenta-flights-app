@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
-import { auth } from "../../../config/firebase";
+import { auth } from '../../../config/firebase';
 
-import ChangeFullNameButton from "../../../components/profile/loginInfo/ChangeFullNameButton";
-import ChangeFullNameModal from "../../../components/profile/loginInfo/ChangeFullNameModal";
+import ChangeFullNameButton from '../../../components/profile/loginInfo/ChangeFullNameButton';
+import ChangeFullNameModal from '../../../components/profile/loginInfo/ChangeFullNameModal';
 
-import colors from "../../../../global/colors";
-import globalStyles from "../../../../global/globalStyles";
+import colors from '../../../../global/colors';
+import globalStyles from '../../../../global/globalStyles';
 
 const LoginInfo = () => {
   const [fullNameModalVisible, setFullNameModalVisible] = useState(false);
-  const [fullName, setFullName] = useState("Currently no name was added");
+  const [fullName, setFullName] = useState('Currently no name was added');
 
   useEffect(() => {
     if (auth.currentUser.displayName) {
@@ -56,37 +56,37 @@ const LoginInfo = () => {
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    alignItems: "center",
-    marginTop: 10,
+    alignItems: 'center',
+    marginTop: 10
   },
   container: {
-    flex: 1,
     backgroundColor: colors.BG_COLOR,
+    flex: 1
   },
   eachInfoContainer: {
-    marginVertical: 5,
-  },
-  infoContainer: {
-    ...globalStyles.marginHorizontal,
-  },
-  subHeaderText: {
-    ...globalStyles.normalText,
-    fontSize: 20,
-    color: colors.PURPLE,
-  },
-  infoText: {
-    ...globalStyles.normalText,
-    fontSize: 22,
-  },
-  subContainer: {
-    paddingLeft: globalStyles.marginHorizontal.value,
+    marginVertical: 5
   },
   headerText: {
     ...globalStyles.headerBoldText,
     fontSize: 38,
     ...globalStyles.marginHorizontal,
-    marginBottom: 16,
+    marginBottom: 16
   },
+  infoContainer: {
+    ...globalStyles.marginHorizontal
+  },
+  infoText: {
+    ...globalStyles.normalText,
+    fontSize: 22
+  },
+  subContainer: {
+    paddingLeft: globalStyles.marginHorizontal.value
+  },
+  subHeaderText: {
+    ...globalStyles.normalText,
+    color: colors.PURPLE,
+    fontSize: 20
+  }
 });
 
 export default LoginInfo;

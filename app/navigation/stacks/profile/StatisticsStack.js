@@ -1,20 +1,20 @@
-import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import StatisticsScreen from "../../../screens/profile/StatisticsScreen";
+import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
+import StatisticsScreen from '../../../screens/profile/StatisticsScreen';
 
 const Stack = createStackNavigator();
 
 const StatisticsStack = () => {
   return (
-    <Stack.Navigator initialRouteName="Statistics">
+    <Stack.Navigator initialRouteName='Statistics'>
       <Stack.Screen
-        name="Statistics"
+        name='Statistics'
         component={StatisticsScreen}
         options={{
           headerStyle: {
-            elevation: 4,
+            elevation: 4
           },
-          title: "",
+          title: ''
         }}
       />
     </Stack.Navigator>

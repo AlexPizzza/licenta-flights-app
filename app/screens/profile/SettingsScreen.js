@@ -1,20 +1,20 @@
-import React, { useContext } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { ListItem } from "react-native-elements";
-import Ripple from "react-native-material-ripple";
+import React, { useContext } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { ListItem } from 'react-native-elements';
+import Ripple from 'react-native-material-ripple';
 
-import { Context as UserContext } from "../../context/UserContext";
+import { Context as UserContext } from '../../context/UserContext';
 
-import colors from "../../../global/colors";
-import globalStyles from "../../../global/globalStyles";
+import colors from '../../../global/colors';
+import globalStyles from '../../../global/globalStyles';
 
 const SettingsScreen = ({ navigation }) => {
   const {
-    state: { currentCurrency },
+    state: { currentCurrency }
   } = useContext(UserContext);
 
   const onPress = () => {
-    navigation.navigate("Currencies");
+    navigation.navigate('Currencies');
   };
 
   return (
@@ -29,7 +29,9 @@ const SettingsScreen = ({ navigation }) => {
       >
         <ListItem bottomDivider>
           <ListItem.Content>
-            <ListItem.Title style={styles.title}>Currency</ListItem.Title>
+            <ListItem.Title>
+              <Text style={styles.title}>Currency</Text>
+            </ListItem.Title>
             <ListItem.Subtitle style={styles.title}>
               {currentCurrency.currency_name}
             </ListItem.Subtitle>
@@ -46,19 +48,19 @@ const SettingsScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: colors.BG_COLOR,
+    flex: 1,
   },
   settingsHeaderText: {
     ...globalStyles.headerBoldText,
     ...globalStyles.marginHorizontal,
 
     fontSize: 40,
-    marginBottom: 16,
+    marginBottom: 16
   },
   title: {
-    ...globalStyles.normalText,
-  },
+    ...globalStyles.normalText
+  }
 });
 
 export default SettingsScreen;

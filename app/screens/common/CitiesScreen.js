@@ -1,29 +1,32 @@
-import React, { useContext, useEffect, useState } from "react";
-import { ActivityIndicator, ScrollView, StyleSheet, View } from "react-native";
-import { Divider } from "react-native-elements";
+import React, { useContext, useEffect, useState } from 'react';
+import { ActivityIndicator, ScrollView, StyleSheet, View } from 'react-native';
+import { Divider } from 'react-native-elements';
 
-import CityCard from "../../components/common/CityCard";
-import EstimatedPrices from "../../components/common/EstimatedPrices";
+import CityCard from '../../components/common/CityCard';
+import EstimatedPrices from '../../components/common/EstimatedPrices';
 
-import { Context as FlightsContext } from "../../context/FlightsContext";
-import { Context as UserContext } from "../../context/UserContext";
+import { Context as FlightsContext } from '../../context/FlightsContext';
+import { Context as UserContext } from '../../context/UserContext';
 
-import colors from "../../../global/colors";
+import colors from '../../../global/colors';
 
 const CitiesScreen = ({ route }) => {
   const { country_iso2 } = route.params;
 
   const {
-    state: { cities },
+    state: { cities }
   } = useContext(FlightsContext);
   const {
-    state: { currentCurrency },
+    state: { currentCurrency }
   } = useContext(UserContext);
 
   const [citiesToShow, setCitiesToShow] = useState([]);
 
   useEffect(() => {
-    if (cities && cities.hasOwnProperty(country_iso2)) {
+    if (
+      cities &&
+      Object.prototype.hasOwnProperty.call(cities, 'country_iso2')
+    ) {
       setCitiesToShow(cities[country_iso2]);
     }
   }, [cities]);
@@ -32,18 +35,18 @@ const CitiesScreen = ({ route }) => {
     <View style={styles.container}>
       <View>
         {!citiesToShow ? (
-          <ActivityIndicator size="large" />
+          <ActivityIndicator size='large' />
         ) : (
           <ScrollView>
             <EstimatedPrices />
             <Divider
               style={{
-                backgroundColor: colors.BLACK,
+                backgroundColor: colors.BLACK
               }}
             />
             {citiesToShow.map((item, index) => (
               <CityCard
-                key={"key" + index}
+                key={'key' + index}
                 item={item.data}
                 currency={currentCurrency}
               />
@@ -57,11 +60,11 @@ const CitiesScreen = ({ route }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    alignItems: 'center',
     backgroundColor: colors.BG_COLOR,
-    justifyContent: "center",
-    alignItems: "center",
-  },
+    flex: 1,
+    justifyContent: 'center'
+  }
 });
 
 export default CitiesScreen;

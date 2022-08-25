@@ -1,4 +1,4 @@
-import computeDistance from "./computeDistance";
+import computeDistance from './computeDistance';
 
 const generateTrueOrFalseFlight = (
   departureCity,

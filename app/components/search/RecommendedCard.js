@@ -1,17 +1,17 @@
-import React, { useContext } from "react";
-import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
+import React, { useContext } from 'react';
+import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 
-import Ripple from "react-native-material-ripple";
+import Ripple from 'react-native-material-ripple';
 
-import { Context as FlightsContext } from "../../context/FlightsContext";
+import { Context as FlightsContext } from '../../context/FlightsContext';
 
-import globalStyles from "../../../global/globalStyles";
-import colors from "../../../global/colors";
+import globalStyles from '../../../global/globalStyles';
+import colors from '../../../global/colors';
 
 const RecommendedCard = ({ item, onPress }) => {
   const {
     state: { cities, userCoords },
-    addCities,
+    addCities
   } = useContext(FlightsContext);
 
   const addCitiesBackToList = () => {
@@ -45,45 +45,45 @@ const RecommendedCard = ({ item, onPress }) => {
   );
 };
 
-const { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get('window');
 const styles = StyleSheet.create({
+  cardView: {
+    backgroundColor: colors.WHITE,
+    borderRadius: 20,
+    elevation: 10,
+    flex: 1,
+    marginHorizontal: 4,
+    marginVertical: 10
+  },
   container: {
     flex: 1,
     ...globalStyles.marginHorizontal,
-    width: 0.75 * width,
     height: 0.45 * height,
-  },
-  cardView: {
-    flex: 1,
-    backgroundColor: "white",
-    marginHorizontal: 4,
-    marginVertical: 10,
-    borderRadius: 20,
-    elevation: 10,
-  },
-  textView: {
-    position: "absolute",
-    bottom: 10,
-    margin: 10,
-    left: 5,
+    width: 0.75 * width
   },
   image: {
-    width: 240,
-    height: 170,
+    alignSelf: 'center',
     borderRadius: 10,
+    height: 170,
     marginTop: 10,
-    alignSelf: "center",
-  },
-  itemTitle: {
-    color: "black",
-    marginBottom: 5,
-    ...globalStyles.headerBoldText,
+    width: 240
   },
   itemDescription: {
-    color: "black",
     ...globalStyles.normalText,
-    marginRight: 4,
+    color: colors.BLACK,
+    marginRight: 4
   },
+  itemTitle: {
+    ...globalStyles.headerBoldText,
+    color: colors.BLACK,
+    marginBottom: 5
+  },
+  textView: {
+    bottom: 10,
+    left: 5,
+    margin: 10,
+    position: 'absolute'
+  }
 });
 
 export default RecommendedCard;

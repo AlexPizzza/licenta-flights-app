@@ -1,68 +1,67 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
-import { BarChart, PieChart } from "react-native-chart-kit";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons } from '@expo/vector-icons';
+import React, { useContext, useEffect, useState } from 'react';
+import { Dimensions, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { BarChart, PieChart } from 'react-native-chart-kit';
 
-import { Context as FlightsContext } from "../../context/FlightsContext";
+import { Context as FlightsContext } from '../../context/FlightsContext';
 
-import colors from "../../../global/colors";
-import globalStyles from "../../../global/globalStyles";
+import colors from '../../../global/colors';
+import globalStyles from '../../../global/globalStyles';
 
 const colorsLegend = [
   {
-    color: "#C13018",
-    legendFontColor: "#7F7F7F",
+    color: '#C13018',
+    legendFontColor: '#7F7F7F'
   },
   {
-    color: "#F36F13",
-    legendFontColor: "#7F7F7F",
+    color: '#F36F13',
+    legendFontColor: '#7F7F7F'
   },
   {
-    color: "#EBCB38",
-    legendFontColor: "#7F7F7F",
+    color: '#EBCB38',
+    legendFontColor: '#7F7F7F'
   },
   {
-    color: "#A2B969",
-    legendFontColor: "#7F7F7F",
+    color: '#A2B969',
+    legendFontColor: '#7F7F7F'
   },
   {
-    color: "#0D95BC",
-    legendFontColor: "#7F7F7F",
-  },
+    color: '#0D95BC',
+    legendFontColor: '#7F7F7F'
+  }
 ];
 
 const barChartConfig = {
-  backgroundGradientFrom: "#d17500",
-  backgroundGradientTo: "#ffa93b",
+  backgroundGradientFrom: '#d17500',
+  backgroundGradientTo: '#ffa93b',
   barPercentage: 0.9,
   decimalPlaces: 0,
   color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
   labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
   propsForVerticalLabels: {
     translateX: -22,
-    translateY: 18,
+    translateY: 18
   },
   propsForHorizontalLabels: {
     translateY: -2,
-    translateX: 10,
+    translateX: 10
   },
   propsForBackgroundLines: {
     strokeWidth: 0.3,
-    stroke: "#FFF",
-    strokeDasharray: "10",
+    stroke: '#FFF',
+    strokeDasharray: '10'
   },
-  fillShadowGradient: "white",
+  fillShadowGradient: 'white',
   fillShadowGradientOpacity: 0.4,
   propsForLabels: {
-    fontSize: 12,
-  },
+    fontSize: 12
+  }
 };
 
-const { width, height } = Dimensions.get("window");
+const { width } = Dimensions.get('window');
 const StatisticsScreen = () => {
   const {
-    state: { statisticsFlights },
-    getStatisticsFlights,
+    state: { statisticsFlights }
   } = useContext(FlightsContext);
 
   const [routesData, setRoutesData] = useState(null);
@@ -73,21 +72,21 @@ const StatisticsScreen = () => {
 
     const firstFive = statisticsFlights.slice(0, 5);
 
-    const firstFiveData = firstFive.map((flight, index) => {
+    const firstFiveData = firstFive.map((flight) => {
       const flightToReturn = {
         label:
           flight.data.first_city.city_iata_code +
-          " - " +
+          ' - ' +
           flight.data.second_city.city_iata_code,
         searches: flight.data.searches,
         cities:
           flight.data.first_city.city_name +
-          " - " +
+          ' - ' +
           flight.data.second_city.city_name,
         countries:
           flight.data.first_city.country_name +
-          " " +
-          flight.data.second_city.country_name,
+          ' ' +
+          flight.data.second_city.country_name
       };
       return flightToReturn;
     });
@@ -100,21 +99,21 @@ const StatisticsScreen = () => {
     }
 
     const otherData = {
-      label: "Others",
-      searches: sum,
+      label: 'Others',
+      searches: sum
     };
 
     let list = {
       labels: [],
       datasets: [
         {
-          data: [],
-        },
+          data: []
+        }
       ],
       cities: [],
-      countries: [],
+      countries: []
     };
-    firstFiveData.forEach((flight, index) => {
+    firstFiveData.forEach((flight) => {
       list.labels.push(flight.label);
       list.datasets[0].data.push(flight.searches);
       list.cities.push(flight.cities);
@@ -147,7 +146,7 @@ const StatisticsScreen = () => {
             country = {
               country_iso2: flight.data.first_city.country_iso2,
               country_name: flight.data.first_city.country_name,
-              searches: flight.data.searches,
+              searches: flight.data.searches
             };
             countriesList.push(country);
           }
@@ -155,7 +154,7 @@ const StatisticsScreen = () => {
           country = {
             country_iso2: flight.data.first_city.country_iso2,
             country_name: flight.data.first_city.country_name,
-            searches: flight.data.searches,
+            searches: flight.data.searches
           };
           countriesList.push(country);
         }
@@ -178,7 +177,7 @@ const StatisticsScreen = () => {
             country = {
               country_iso2: flight.data.first_city.country_iso2,
               country_name: flight.data.first_city.country_name,
-              searches: flight.data.searches,
+              searches: flight.data.searches
             };
             countriesList.push(country);
           }
@@ -186,7 +185,7 @@ const StatisticsScreen = () => {
             country = {
               country_iso2: flight.data.second_city.country_iso2,
               country_name: flight.data.second_city.country_name,
-              searches: flight.data.searches,
+              searches: flight.data.searches
             };
             countriesList.push(country);
           }
@@ -194,13 +193,13 @@ const StatisticsScreen = () => {
           country = {
             country_iso2: flight.data.first_city.country_iso2,
             country_name: flight.data.first_city.country_name,
-            searches: flight.data.searches,
+            searches: flight.data.searches
           };
           countriesList.push(country);
           country = {
             country_iso2: flight.data.second_city.country_iso2,
             country_name: flight.data.second_city.country_name,
-            searches: flight.data.searches,
+            searches: flight.data.searches
           };
           countriesList.push(country);
         }
@@ -216,7 +215,7 @@ const StatisticsScreen = () => {
         legendFontColor: colorsLegend[index].legendFontColor,
         legendFontSize: 14,
         name: flight.country_name,
-        searches: flight.searches,
+        searches: flight.searches
       };
       return flightToReturn;
     });
@@ -229,11 +228,11 @@ const StatisticsScreen = () => {
     }
 
     const otherData = {
-      name: "Others",
+      name: 'Others',
       searches: sum,
-      color: "#063951",
-      legendFontColor: "#7F7F7F",
-      legendFontSize: 14,
+      color: '#063951',
+      legendFontColor: '#7F7F7F',
+      legendFontSize: 14
     };
 
     let list = [];
@@ -252,7 +251,7 @@ const StatisticsScreen = () => {
     <ScrollView
       style={styles.container}
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ flexGrow: 1 }}
+      contentContainerStyle={styles.scrollViewContentContainerStyle}
     >
       <Text style={styles.headerText}>Statistics</Text>
 
@@ -266,9 +265,9 @@ const StatisticsScreen = () => {
               width={width}
               height={250}
               chartConfig={{
-                color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+                color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`
               }}
-              accessor={"searches"}
+              accessor={'searches'}
               center={[10, 5]}
             />
           ) : null}
@@ -291,34 +290,28 @@ const StatisticsScreen = () => {
                 chartConfig={barChartConfig}
                 showValuesOnTopOfBars={true}
                 verticalLabelRotation={-30}
-                style={{
-                  borderRadius: 16,
-                }}
+                style={styles.barChartStyle}
               />
               <Text style={styles.flightRoutesTextStyle}>Flight routes</Text>
 
               <View style={styles.routesOuterView}>
                 {routesData.labels.map((route, index) => (
-                  <View key={"key" + index} style={styles.routesView}>
-                    <View
-                      style={{ flexDirection: "row", alignItems: "center" }}
-                    >
-                      <Ionicons name="airplane" size={18} color="#dd9500" />
+                  <View key={'key' + index} style={styles.routesView}>
+                    <View style={styles.routesInnerView}>
+                      <Ionicons name='airplane' size={18} color='#dd9500' />
                       <Text
-                        style={[
-                          styles.descritionText,
-                          {
-                            ...globalStyles.boldText,
-                            marginLeft: 10,
-                            marginBottom: 2,
-                          },
-                        ]}
+                        style={[styles.descriptionText, styles.routesTextStyle]}
                       >
                         {route}
                       </Text>
                     </View>
 
-                    <Text style={[styles.descritionText, { fontSize: 16 }]}>
+                    <Text
+                      style={[
+                        styles.descriptionText,
+                        styles.routeCityTextStyle
+                      ]}
+                    >
                       {routesData.cities[index]}
                     </Text>
                   </View>
@@ -333,74 +326,92 @@ const StatisticsScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  barChartOuterView: {
+    alignItems: 'center',
+    flex: 1,
+    marginHorizontal: 2,
+    marginTop: 20
+  },
+  barChartStyle: {
+    borderRadius: 16
+  },
+  barChartView: {
+    flex: 1,
+    marginHorizontal: 4
+  },
   container: {
-    backgroundColor: colors.BG_COLOR,
+    backgroundColor: colors.BG_COLOR
+  },
+  descriptionText: {
+    ...globalStyles.normalText,
+    fontSize: 16
+  },
+  flightRoutesTextStyle: {
+    color: colors.WHITE,
+    elevation: 4,
+    fontSize: 16,
+    left: 140,
+    opacity: 0.9,
+    position: 'absolute',
+    top: 370
   },
   headerText: {
     ...globalStyles.headerBoldText,
     ...globalStyles.marginHorizontal,
     fontSize: 40,
-    marginBottom: 20,
+    marginBottom: 20
+  },
+  numberOfSearchesTextStyle: {
+    color: colors.WHITE,
+    elevation: 4,
+    fontSize: 16,
+    left: -56,
+    opacity: 0.9,
+    position: 'absolute',
+    top: 170,
+    transform: [{ rotate: '270deg' }]
   },
   pichartOuterView: {
+    alignItems: 'center',
     flex: 1,
-    alignItems: "center",
-    margin: 4,
+    margin: 4
   },
   piechartView: {
     flex: 1,
-    marginLeft: 16,
+    marginLeft: 16
   },
-  barChartOuterView: {
-    flex: 1,
-    alignItems: "center",
-    marginTop: 20,
-    marginHorizontal: 2,
+  routeCityTextStyle: {
+    fontSize: 16
   },
-  barChartView: {
-    flex: 1,
-    marginHorizontal: 4,
+  routesInnerView: {
+    alignItems: 'center',
+    flexDirection: 'row'
   },
-  titlePieChart: {
+  routesOuterView: {
+    marginVertical: 10
+  },
+  routesTextStyle: {
     ...globalStyles.boldText,
-    fontSize: 20,
-    marginTop: 6,
+    marginBottom: 2,
+    marginLeft: 10
+  },
+  routesView: {
+    marginTop: 8,
+    ...globalStyles.marginHorizontal
+  },
+  scrollViewContentContainerStyle: {
+    flexGrow: 1
   },
   titleBarChart: {
     ...globalStyles.boldText,
     fontSize: 20,
-    marginBottom: 12,
+    marginBottom: 12
   },
-  routesOuterView: {
-    marginVertical: 10,
-  },
-  routesView: {
-    marginTop: 8,
-    ...globalStyles.marginHorizontal,
-  },
-  descritionText: {
-    ...globalStyles.normalText,
-    fontSize: 16,
-  },
-  numberOfSearchesTextStyle: {
-    position: "absolute",
-    left: -56,
-    top: 170,
-    transform: [{ rotate: "270deg" }],
-    elevation: 4,
-    color: colors.WHITE,
-    fontSize: 16,
-    opacity: 0.9,
-  },
-  flightRoutesTextStyle: {
-    position: "absolute",
-    elevation: 4,
-    color: colors.WHITE,
-    fontSize: 16,
-    left: 140,
-    top: 370,
-    opacity: 0.9,
-  },
+  titlePieChart: {
+    ...globalStyles.boldText,
+    fontSize: 20,
+    marginTop: 6
+  }
 });
 
 export default StatisticsScreen;

@@ -1,24 +1,24 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
-import { ListItem } from "react-native-elements";
-import Ripple from "react-native-material-ripple";
+import { ListItem } from 'react-native-elements';
+import Ripple from 'react-native-material-ripple';
 
-import RatingModal from "../../components/profile/support/RatingModal";
+import RatingModal from '../../components/profile/support/RatingModal';
 
-import colors from "../../../global/colors";
-import globalStyles from "../../../global/globalStyles";
+import colors from '../../../global/colors';
+import globalStyles from '../../../global/globalStyles';
 
 const feedback = [
   {
-    title: "Rating",
-  },
+    title: 'Rating'
+  }
 ];
 
 const termsAndPolicies = [
   {
-    title: "Third-party licenses",
-  },
+    title: 'Third-party licenses'
+  }
 ];
 
 const SupportScreen = ({ navigation }) => {
@@ -34,19 +34,19 @@ const SupportScreen = ({ navigation }) => {
         ratingModalVisible={ratingModalVisible}
         setRatingModalVisible={setRatingModalVisible}
       />
-      <View style={{ marginBottom: 30 }}>
+      <View style={styles.feedbackView}>
         {feedback.map((item, index) => (
           <Ripple
             key={index}
             rippleColor={colors.PURPLE}
             rippleOpacity={0.8}
             onPress={() => {
-              if (item.title === "Rating") {
+              if (item.title === 'Rating') {
                 setRatingModalVisible(true);
               }
             }}
             onLongPress={() => {
-              if (item.title === "Rating") {
+              if (item.title === 'Rating') {
                 setRatingModalVisible(true);
               }
             }}
@@ -74,13 +74,13 @@ const SupportScreen = ({ navigation }) => {
           rippleColor={colors.PURPLE}
           rippleOpacity={0.8}
           onPress={() => {
-            if (item.title === "Third-party licenses") {
-              navigation.navigate("ThirdPartyLicenses");
+            if (item.title === 'Third-party licenses') {
+              navigation.navigate('ThirdPartyLicenses');
             }
           }}
           onLongPress={() => {
-            if (item.title === "Third-party licenses") {
-              navigation.navigate("ThirdPartyLicenses");
+            if (item.title === 'Third-party licenses') {
+              navigation.navigate('ThirdPartyLicenses');
             }
           }}
           delayLongPress={150}
@@ -102,23 +102,26 @@ const SupportScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: colors.BG_COLOR,
+    flex: 1
+  },
+  feedbackView: {
+    marginBottom: 30
   },
   headerText: {
     ...globalStyles.headerBoldText,
     fontSize: 40,
     ...globalStyles.marginHorizontal,
-    marginBottom: 30,
+    marginBottom: 30
   },
   subHeaderText: {
     ...globalStyles.headerBoldText,
     fontSize: 30,
-    ...globalStyles.marginHorizontal,
+    ...globalStyles.marginHorizontal
   },
   title: {
-    ...globalStyles.normalText,
-  },
+    ...globalStyles.normalText
+  }
 });
 
 export default SupportScreen;

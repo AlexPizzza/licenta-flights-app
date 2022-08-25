@@ -1,23 +1,23 @@
-import React, { useContext } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useContext } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ListItem } from "react-native-elements";
-import Ripple from "react-native-material-ripple";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ListItem } from 'react-native-elements';
+import Ripple from 'react-native-material-ripple';
 
-import { Context as UserContext } from "../../../context/UserContext";
-import { Context as AuthContext } from "../../../context/AuthContext";
+import { Context as UserContext } from '../../../context/UserContext';
+import { Context as AuthContext } from '../../../context/AuthContext';
 
-import colors from "../../../../global/colors";
-import globalStyles from "../../../../global/globalStyles";
+import colors from '../../../../global/colors';
+import globalStyles from '../../../../global/globalStyles';
 
 const list = [
   {
-    title: "Clear async storage",
+    title: 'Clear async storage'
   },
   {
-    title: "Set app first time",
-  },
+    title: 'Set app first time'
+  }
 ];
 
 const AccountManagementScreen = () => {
@@ -34,7 +34,7 @@ const AccountManagementScreen = () => {
             rippleColor={colors.PURPLE}
             rippleOpacity={0.8}
             onPress={() => {
-              if (item.title.toLowerCase().includes("async".toLowerCase())) {
+              if (item.title.toLowerCase().includes('async'.toLowerCase())) {
                 const clear = async () => {
                   await AsyncStorage.clear();
                 };
@@ -44,14 +44,14 @@ const AccountManagementScreen = () => {
                   console.log(error);
                 }
               } else if (
-                item.title.toLowerCase().includes("first".toLowerCase())
+                item.title.toLowerCase().includes('first'.toLowerCase())
               ) {
                 setValueIsFirstTime(true);
                 signout();
               }
             }}
             onLongPress={() => {
-              if (item.title.toLowerCase().includes("async".toLowerCase())) {
+              if (item.title.toLowerCase().includes('async'.toLowerCase())) {
                 const clear = async () => {
                   // await AsyncStorage.removeItem("");
                   await AsyncStorage.clear();
@@ -62,7 +62,7 @@ const AccountManagementScreen = () => {
                   console.log(error);
                 }
               } else if (
-                item.title.toLowerCase().includes("first".toLowerCase())
+                item.title.toLowerCase().includes('first'.toLowerCase())
               ) {
                 setValueIsFirstTime(true);
                 signout();
@@ -90,21 +90,21 @@ const AccountManagementScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: colors.BG_COLOR,
-  },
-  subContainer: {
-    paddingLeft: globalStyles.marginHorizontal.value,
+    flex: 1
   },
   headerText: {
     ...globalStyles.headerBoldText,
     fontSize: 38,
     ...globalStyles.marginHorizontal,
-    marginBottom: 16,
+    marginBottom: 16
+  },
+  subContainer: {
+    paddingLeft: globalStyles.marginHorizontal.value
   },
   title: {
-    ...globalStyles.normalText,
-  },
+    ...globalStyles.normalText
+  }
 });
 
 export default AccountManagementScreen;

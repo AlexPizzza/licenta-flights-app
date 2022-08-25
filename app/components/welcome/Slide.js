@@ -1,8 +1,8 @@
-import React from "react";
-import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
+import React from 'react';
+import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 
-import colors from "../../../global/colors";
-import globalStyles from "../../../global/globalStyles";
+import colors from '../../../global/colors';
+import globalStyles from '../../../global/globalStyles';
 
 const Slide = ({ item }) => {
   const { title, description, image } = item;
@@ -18,27 +18,27 @@ const Slide = ({ item }) => {
   );
 };
 
-const { width, height } = Dimensions.get("window");
+const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingBottom: 40,
+    alignItems: 'center',
     backgroundColor: colors.BG_WELCOME,
+    flex: 1,
+    justifyContent: 'center',
+    paddingBottom: 40
   },
   imageStyle: {
-    width,
-    height: undefined,
     aspectRatio: 1,
+    height: undefined,
     marginTop: 20,
+    width
   },
   normalText: {
     ...globalStyles.marginHorizontal,
-    textAlign: "center",
     fontSize: 20,
     marginTop: 10,
-  },
+    textAlign: 'center'
+  }
 });
 
 export default Slide;
