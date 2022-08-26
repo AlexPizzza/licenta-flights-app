@@ -10,14 +10,14 @@ const Stack = createStackNavigator();
 
 const SearchStack = () => {
   return (
-    <Stack.Navigator initialRouteName='Search'>
+    <Stack.Navigator initialRouteName='SearchScreen'>
       <Stack.Screen
-        name='Search'
+        name='SearchScreen'
         component={SearchScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name='Recommended'
+        name='RecommendedScreen'
         component={RecommendedScreen}
         options={{
           headerStyle: {

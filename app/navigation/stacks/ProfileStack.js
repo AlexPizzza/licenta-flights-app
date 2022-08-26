@@ -11,9 +11,14 @@ const Stack = createStackNavigator();
 
 const ProfileStack = () => {
   return (
-    <Stack.Navigator initialRouteName='Profile' headerMode='none'>
+    <Stack.Navigator
+      initialRouteName='ProfileScreen'
+      screenOptions={{
+        headerShown: false
+      }}
+    >
       <Stack.Screen
-        name='Profile'
+        name='ProfileScreen'
         component={ProfileScreen}
         options={{ headerShown: false }}
       />

@@ -10,14 +10,14 @@ const Stack = createStackNavigator();
 
 const ExploreStack = () => {
   return (
-    <Stack.Navigator initialRouteName='Explore'>
+    <Stack.Navigator initialRouteName='ExploreScreen'>
       <Stack.Screen
-        name='Explore'
+        name='ExploreScreen'
         component={ExploreScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name='Recommended'
+        name='RecommendedScreen'
         component={RecommendedScreen}
         options={({ route }) => ({
           headerStyle: {

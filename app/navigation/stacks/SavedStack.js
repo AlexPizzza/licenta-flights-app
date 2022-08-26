@@ -6,8 +6,12 @@ const Stack = createStackNavigator();
 
 const SavedStack = () => {
   return (
-    <Stack.Navigator headerMode='none'>
-      <Stack.Screen name='Saved' component={SavedScreen} />
+    <Stack.Navigator
+      screenOptions={{
+        headerMode: false
+      }}
+    >
+      <Stack.Screen name='SavedScreen' component={SavedScreen} />
     </Stack.Navigator>
   );
 };

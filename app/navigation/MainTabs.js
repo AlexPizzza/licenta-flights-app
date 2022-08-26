@@ -14,30 +14,30 @@ import globalStyles from '../../global/globalStyles';
 
 const Tab = createMaterialTopTabNavigator();
 
-const barOptions = {
-  activeTintColor: colors.TAB_BAR_ICON_SELECTED,
-  inactiveTintColor: colors.TAB_BAR_ICON_DEFAULT,
-  pressColor: colors.TAB_BAR_PRESS_COLOR,
-  indicatorStyle: {
+const screenOptions = {
+  tabBarActiveTintColor: colors.TAB_BAR_ICON_SELECTED,
+  tabBarInactiveTintColor: colors.TAB_BAR_ICON_DEFAULT,
+  tabBarPressColor: colors.TAB_BAR_PRESS_COLOR,
+  tabBarIndicatorStyle: {
     top: 0,
     backgroundColor: colors.TAB_BAR_ICON_DEFAULT
   },
-  labelStyle: {
+  tabBarLabelStyle: {
     ...globalStyles.labelText,
     marginTop: 0,
     marginLeft: 6
   },
-  tabStyle: {
+  tabBarStyle: {
+    backgroundColor: colors.TAB_BAR_BG_COLOR,
+    elevation: 4,
     height: 52
   },
-  style: {
-    backgroundColor: colors.TAB_BAR_BG_COLOR,
-    elevation: 4
+  tabBarShowIcon: true,
+  tabBarIconStyle: {
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-  showIcon: true,
-  iconStyle: {
-    justifyContent: 'center'
-  }
+  swipeEnabled: false
 };
 
 const iconSize = 22;
@@ -48,8 +48,7 @@ const MainTabs = () => {
       tabBarPosition='bottom'
       backBehavior='history'
       initialRouteName='Search'
-      swipeEnabled={false}
-      tabBarOptions={barOptions}
+      screenOptions={screenOptions}
     >
       <Tab.Screen
         name='Search'

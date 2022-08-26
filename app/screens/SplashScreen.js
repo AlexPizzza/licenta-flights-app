@@ -1,6 +1,7 @@
-import AppLoading from 'expo-app-loading';
+import { useFonts } from 'expo-font';
+import * as ExpoSplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 
 import { Context as AuthContext } from '../context/AuthContext';
@@ -13,10 +14,19 @@ import WelcomeScreen from './authentication/WelcomeScreen';
 
 import globalStyles from '../../global/globalStyles';
 
-import useFonts from '../hooks/useFonts';
 import useLocation from '../hooks/useLocation';
 
+ExpoSplashScreen.preventAutoHideAsync();
+
 const SplashScreen = () => {
+  const [appIsReady, setAppIsReady] = useState(false);
+  const [fontsLoaded] = useFonts({
+    'nunito-bold': require('../../assets/fonts/Nunito-Bold.ttf'),
+    'nunito-regular': require('../../assets/fonts/Nunito-Regular.ttf'),
+    'nunito-semi-bold': require('../../assets/fonts/Nunito-SemiBold.ttf')
+  });
+  const [locationText] = useLocation();
+
   const { state: authState, tryLocalSignIn } = useContext(AuthContext);
   const {
     state: userState,
@@ -46,57 +56,66 @@ const SplashScreen = () => {
     getStatisticsFlights
   } = useContext(FlightsContext);
 
-  let [fontsLoaded] = useFonts();
-  const [locationText] = useLocation();
-  const [isLocationTextEmpty, setIsLocationTextEmpty] = useState(true);
-
   useEffect(() => {
     const getData = async () => {
-      await checkIsFirstTime();
-      await tryLocalSignIn();
-      getDate();
+      try {
+        await checkIsFirstTime();
+        await tryLocalSignIn();
+        getDate();
+
+        getCountriesBySearchType();
+
+        await Promise.all([
+          await addCurrencies(),
+          await getRecommendedCountries(),
+          await getUserRating(),
+          await getStatisticsFlights(),
+          await getCurrentCurrency(),
+          await getSavedFlights()
+        ]);
+
+        await new Promise((res) => setTimeout(res, 2000));
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setAppIsReady(true);
+      }
     };
     getData();
   }, []);
 
-  if (!fontsLoaded || isLocationTextEmpty) {
-    return (
-      <AppLoading
-        startAsync={async () => {
-          await addCurrencies();
-          await getRecommendedCountries();
-          await getUserRating();
-          await getStatisticsFlights();
-          getCountriesBySearchType();
-          getCurrentCurrency();
+  const onLayoutRootView = useCallback(async () => {
+    if (!appIsReady || !fontsLoaded) {
+      return;
+    }
 
-          getSavedFlights();
-          await Promise.all([new Promise((res) => setTimeout(res, 2000))]);
-        }}
-        onFinish={() => {
-          addUserLocation(locationText);
-          setIsLocationTextEmpty(false);
+    addUserLocation(locationText);
 
-          setTimeout(() => {
-            addPriceToCountries(
-              exploreEverywhere,
-              recommendedCountries,
-              popularDestinations,
-              quickGetaways,
-              longerTrips,
-              lastMinute,
-              planAhead,
-              userCoords
-            );
-          }, 600);
-        }}
-        onError={() => {}}
-      />
-    );
+    await new Promise((res) => {
+      setTimeout(() => {
+        addPriceToCountries(
+          exploreEverywhere,
+          recommendedCountries,
+          popularDestinations,
+          quickGetaways,
+          longerTrips,
+          lastMinute,
+          planAhead,
+          userCoords
+        );
+        res();
+      }, 600);
+    });
+
+    await ExpoSplashScreen.hideAsync();
+  }, [appIsReady, fontsLoaded]);
+
+  if (!appIsReady) {
+    return null;
   }
 
   return (
-    <View style={styles.container}>
+    <View onLayout={onLayoutRootView} style={styles.container}>
       <StatusBar style='dark' backgroundColor='white' />
 
       {userState.isFirstTime === null || userState.isFirstTime ? (

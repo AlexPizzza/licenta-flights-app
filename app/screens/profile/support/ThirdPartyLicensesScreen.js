@@ -39,7 +39,7 @@ const thirdPartyLicensesList = [
   'react-native-reanimated',
   'react-native-safe-area-context',
   'react-native-screens',
-  'react-native-simple-toast',
+  'react-native-toast-message',
   'react-native-svg',
   'react-native-tab-view',
   'react-native-web',

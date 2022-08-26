@@ -59,14 +59,23 @@ const ProfileScreen = ({ navigation }) => {
           onLongPress={onPress}
           delayLongPress={150}
         >
-          <Avatar
-            rounded
-            size='large'
-            containerStyle={styles.avatarContainerStyle}
-            titleStyle={styles.avatarTitleStyle}
-            source={image ?? { uri: image }}
-            icon={!image ?? { name: 'camera', type: 'font-awesome' }}
-          />
+          {image ? (
+            <Avatar
+              rounded
+              size='large'
+              containerStyle={styles.avatarContainerStyle}
+              titleStyle={styles.avatarTitleStyle}
+              source={{ uri: image }}
+            />
+          ) : (
+            <Avatar
+              rounded
+              size='large'
+              containerStyle={styles.avatarContainerStyle}
+              titleStyle={styles.avatarTitleStyle}
+              icon={{ name: 'camera', type: 'font-awesome' }}
+            />
+          )}
         </Ripple>
       </View>
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 
-import Toast from 'react-native-simple-toast';
+import Toast from 'react-native-toast-message';
 import Ripple from 'react-native-material-ripple';
 import { Entypo } from '@expo/vector-icons';
 
@@ -16,14 +16,18 @@ const EstimatedPrices = () => {
       rippleContainerBorderRadius={12}
       style={styles.container}
       onPress={() => {
-        Toast.show(
-          'Estimated lowest prices per person for Economy class for a Round Trip flight'
-        );
+        Toast.show({
+          type: 'info',
+          text1:
+            'Estimated lowest prices per person for Economy class for a Round Trip flight'
+        });
       }}
       onLongPress={() => {
-        Toast.show(
-          'Estimated lowest prices per person for Economy class for a Round Trip flight'
-        );
+        Toast.show({
+          type: 'info',
+          text1:
+            'Estimated lowest prices per person for Economy class for a Round Trip flight'
+        });
       }}
       delayLongPress={150}
     >

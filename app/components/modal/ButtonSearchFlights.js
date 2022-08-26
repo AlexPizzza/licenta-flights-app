@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { StyleSheet, Text } from 'react-native';
 
 import Ripple from 'react-native-material-ripple';
-import Toast from 'react-native-simple-toast';
+import Toast from 'react-native-toast-message';
 
 import {
   generatePriceForRoundTripFlights,
@@ -47,15 +47,23 @@ const ButtonSearchFlights = ({
 
   const onButtonPress = async () => {
     if (whereFromText === 'Where from?') {
-      Toast.show(
-        '"Where from?" field must contain a Country, City or Airport.',
-        Toast.LONG
-      );
+      Toast.show({
+        type: 'info',
+        text1: '"Where from?" field must contain a Country, City or Airport.',
+        autoHide: true,
+        props: {
+          visibilityTime: 2000
+        }
+      });
     } else if (whereToText === 'Where to?') {
-      Toast.show(
-        '"Where to?" field must contain a Country, City or Airport.',
-        Toast.LONG
-      );
+      Toast.show({
+        type: 'info',
+        text1: '"Where to?" field must contain a Country, City or Airport.',
+        autoHide: true,
+        props: {
+          visibilityTime: 2000
+        }
+      });
     } else {
       let flightInList = null;
       await addToStatistics(departureCity, arrivalCity);

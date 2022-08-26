@@ -5,7 +5,6 @@ import { Context as UserContext } from '../context/UserContext';
 import { Context as FlightsContext } from '../context/FlightsContext';
 
 export default () => {
-  const [setLocation] = useState(null);
   const [locationText, setLocationText] = useState('');
 
   const { addUserLocationError } = useContext(UserContext);
@@ -15,7 +14,7 @@ export default () => {
   useEffect(() => {
     const geUserLocation = async () => {
       try {
-        const { status } = await Location.requestPermissionsAsync();
+        const { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== 'granted') {
           return;
         }
@@ -28,7 +27,6 @@ export default () => {
         addUserCoordinates(coords);
 
         const cityLocation = await Location.reverseGeocodeAsync(coords);
-        setLocation(cityLocation);
 
         const city = JSON.stringify(cityLocation[0].city).replace(
           /^"(.+(?="$))"$/,
@@ -43,7 +41,9 @@ export default () => {
         addUserLocationError(error);
       }
     };
+
     geUserLocation();
   }, []);
+
   return [locationText];
 };
