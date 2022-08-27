@@ -25,13 +25,12 @@ const SplashScreen = () => {
     'nunito-regular': require('../../assets/fonts/Nunito-Regular.ttf'),
     'nunito-semi-bold': require('../../assets/fonts/Nunito-SemiBold.ttf')
   });
-  const [locationText] = useLocation();
+  useLocation();
 
   const { state: authState, tryLocalSignIn } = useContext(AuthContext);
   const {
     state: userState,
     checkIsFirstTime,
-    addUserLocation,
     getUserRating,
     addCurrencies,
     getCurrentCurrency
@@ -48,33 +47,46 @@ const SplashScreen = () => {
       planAhead,
       userCoords
     },
-    getRecommendedCountries,
-    getCountriesBySearchType,
     addPriceToCountries,
+    getCountriesBySearchType,
     getSavedFlights,
     getDate,
     getStatisticsFlights
   } = useContext(FlightsContext);
 
   useEffect(() => {
+    (async () => {
+      await new Promise((res) => {
+        getCountriesBySearchType();
+        res();
+      });
+    })();
     const getData = async () => {
       try {
         await checkIsFirstTime();
         await tryLocalSignIn();
         getDate();
 
-        getCountriesBySearchType();
-
         await Promise.all([
-          await addCurrencies(),
-          await getRecommendedCountries(),
-          await getUserRating(),
-          await getStatisticsFlights(),
-          await getCurrentCurrency(),
-          await getSavedFlights()
+          addCurrencies(),
+          getUserRating(),
+          getStatisticsFlights(),
+          getCurrentCurrency(),
+          getSavedFlights()
         ]);
 
-        await new Promise((res) => setTimeout(res, 2000));
+        addPriceToCountries(
+          exploreEverywhere,
+          recommendedCountries,
+          popularDestinations,
+          quickGetaways,
+          longerTrips,
+          lastMinute,
+          planAhead,
+          userCoords
+        );
+
+        await new Promise((res) => setTimeout(res, 1000));
       } catch (e) {
         console.warn(e);
       } finally {
@@ -88,24 +100,6 @@ const SplashScreen = () => {
     if (!appIsReady || !fontsLoaded) {
       return;
     }
-
-    addUserLocation(locationText);
-
-    await new Promise((res) => {
-      setTimeout(() => {
-        addPriceToCountries(
-          exploreEverywhere,
-          recommendedCountries,
-          popularDestinations,
-          quickGetaways,
-          longerTrips,
-          lastMinute,
-          planAhead,
-          userCoords
-        );
-        res();
-      }, 600);
-    });
 
     await ExpoSplashScreen.hideAsync();
   }, [appIsReady, fontsLoaded]);

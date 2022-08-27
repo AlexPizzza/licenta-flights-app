@@ -1,6 +1,7 @@
 import 'react-native-gesture-handler';
 import React from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
 
 import { Provider as AuthProvider } from './app/context/AuthContext';
 import { Provider as UserProvider } from './app/context/UserContext';
@@ -11,6 +12,7 @@ import SplashScreen from './app/screens/SplashScreen';
 const App = () => (
   <NavigationContainer>
     <SplashScreen />
+    <Toast />
   </NavigationContainer>
 );
 

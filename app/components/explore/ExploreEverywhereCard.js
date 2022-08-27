@@ -13,7 +13,7 @@ const ExploreEverywhereCard = () => {
   const navigation = useNavigation();
 
   const goToExploreCountries = () => {
-    navigation.navigate('Recommended', {
+    navigation.navigate('RecommendedScreen', {
       title: 'Explore Everywhere',
       searchType: 'explore_everywhere'
     });

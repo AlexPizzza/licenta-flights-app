@@ -18,15 +18,15 @@ const EstimatedPrices = () => {
       onPress={() => {
         Toast.show({
           type: 'info',
-          text1:
-            'Estimated lowest prices per person for Economy class for a Round Trip flight'
+          text1: 'Estimated lowest prices per person',
+          text2: '(Economy class for a Round Trip flight)'
         });
       }}
       onLongPress={() => {
         Toast.show({
           type: 'info',
-          text1:
-            'Estimated lowest prices per person for Economy class for a Round Trip flight'
+          text1: 'Estimated lowest prices per person',
+          text2: '(Economy class for a Round Trip flight)'
         });
       }}
       delayLongPress={150}

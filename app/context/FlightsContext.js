@@ -119,25 +119,18 @@ const flightsReducer = (state, action) => {
   }
 };
 
-const getRecommendedCountries = (dispatch) => async () => {
-  try {
-    let list = [];
-    const snapshot = await db.collection('flights_recommended').get();
-
-    snapshot.forEach((doc) => {
-      list.push({ id: doc.id, data: doc.data() });
-    });
-
-    dispatch({ type: 'add_recommended_countries', payload: list });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 const getCountriesBySearchType = (dispatch) => async () => {
   try {
     let list = [];
-    let snapshot = await db.collection('flights_explore_everywhere').get();
+    let snapshot = await db.collection('flights_recommended').get();
+    snapshot.forEach((doc) => {
+      list.push({ id: doc.id, data: doc.data() });
+    });
+    console.log('list[0]', list[0]);
+    dispatch({ type: 'add_recommended_countries', payload: list });
+
+    list = [];
+    snapshot = await db.collection('flights_explore_everywhere').get();
     snapshot.forEach((doc) => {
       list.push({ id: doc.id, data: doc.data() });
     });
@@ -177,8 +170,11 @@ const getCountriesBySearchType = (dispatch) => async () => {
       list.push({ id: doc.id, data: doc.data() });
     });
     dispatch({ type: 'add_plan_ahead_countries', payload: list });
+
+    return Promise.resolve();
   } catch (error) {
     console.log(error);
+    return Promise.reject();
   }
 };
 
@@ -194,6 +190,9 @@ const addPriceToCountries =
     planAhead,
     userCoords
   ) => {
+    console.log('recommendedCountries', recommendedCountries);
+    console.log('popularDestinations', popularDestinations[0]);
+    console.log('exploreEverywhere', exploreEverywhere[0]);
     exploreEverywhere.forEach((element) => {
       element.data.price = generatePrice(
         1,
@@ -219,6 +218,7 @@ const addPriceToCountries =
       );
     });
     recommendedCountries.sort(sorter);
+    console.log('sorted recommended', recommendedCountries);
     dispatch({
       type: 'add_recommended_countries',
       payload: recommendedCountries
@@ -348,21 +348,6 @@ const getLocations = (dispatch) => async (text) => {
 const clearLocations = (dispatch) => () => {
   dispatch({ type: 'clear_locations', payload: [] });
 };
-
-const addPriceToRecommendedCountries =
-  (dispatch) => (countries, userLat, userLong) => {
-    countries.forEach((element) => {
-      element.data.price = generatePrice(
-        1,
-        userLat,
-        userLong,
-        element.data.latitude,
-        element.data.longitude
-      );
-    });
-
-    dispatch({ type: 'add_recommended_countries', payload: countries });
-  };
 
 const addCities =
   (dispatch) => async (country_iso2, userCoords, citiesContext) => {
@@ -588,13 +573,11 @@ export const { Context, Provider } = createDataContext(
     getSavedFlights,
     deleteFlightFromSavedFlights,
     addPriceToCountries,
-    addPriceToRecommendedCountries,
     addUserCoordinates,
     clearLocations,
     getDate,
     getCountriesBySearchType,
     getLocations,
-    getRecommendedCountries,
     getStatisticsFlights
   },
   {

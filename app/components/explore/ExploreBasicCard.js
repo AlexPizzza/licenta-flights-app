@@ -14,7 +14,7 @@ const ExploreBasicCard = ({ item }) => {
     searchTypeString = searchTypeString.split(' ');
 
     const searchType = searchTypeString[0] + '_' + searchTypeString[1];
-    navigation.navigate('Recommended', { title, searchType });
+    navigation.navigate('RecommendedScreen', { title, searchType });
   };
 
   return (

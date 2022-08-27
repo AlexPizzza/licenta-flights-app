@@ -13,13 +13,13 @@ import { auth } from '../../config/firebase';
 import { Context as FlightsContext } from '../../context/FlightsContext';
 import { Context as UserContext } from '../../context/UserContext';
 
-import useLocation from '../../hooks/useLocation';
-
 import colors from '../../../global/colors';
 import globalStyles from '../../../global/globalStyles';
 
 const SearchScreen = ({ navigation }) => {
-  const { state } = useContext(UserContext);
+  const {
+    state: { userLocation }
+  } = useContext(UserContext);
   const {
     state: { recommendedCountries }
   } = useContext(FlightsContext);
@@ -27,8 +27,6 @@ const SearchScreen = ({ navigation }) => {
   const [filteredResults, setFilteredResults] = useState([]);
   const [displayName, setDisplayName] = useState('');
   const isFocused = useIsFocused();
-
-  let [locationText] = useLocation();
 
   const getFilteredResults = () => {
     const filteredList = recommendedCountries.filter((result) => {
@@ -65,7 +63,7 @@ const SearchScreen = ({ navigation }) => {
   }, [isFocused]);
 
   const goToRecommendedScreen = () => {
-    navigation.navigate('Recommended', { searchType: 'recommended' });
+    navigation.navigate('RecommendedScreen', { searchType: 'recommended' });
   };
 
   const goToCitiesScreen = (title, country_iso2) => {
@@ -78,28 +76,29 @@ const SearchScreen = ({ navigation }) => {
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
       />
-      <View style={styles.location}>
-        <FontAwesome5 name='map-marker-alt' size={28} color={colors.ORANGE} />
+      {userLocation && (
+        <View style={styles.location}>
+          <FontAwesome5 name='map-marker-alt' size={28} color={colors.ORANGE} />
 
-        <View style={styles.locationText}>
-          <Text style={globalStyles.headerBoldText}>
-            {state.userLocation !== undefined
-              ? state.userLocation.split(',')[0] + ','
-              : locationText.split(',')[0] + ','}
-          </Text>
-          <Text style={globalStyles.headerText}>
-            {state.userLocation !== undefined
-              ? state.userLocation.split(',')[1]
-              : locationText.split(',')[1]}
-          </Text>
+          <View style={styles.locationText}>
+            <Text style={globalStyles.headerBoldText}>
+              {userLocation !== undefined
+                ? userLocation.split(',')[0] + ','
+                : ''}
+            </Text>
+            <Text style={globalStyles.headerText}>
+              {userLocation !== undefined ? userLocation.split(',')[1] : ''}
+            </Text>
+          </View>
         </View>
-      </View>
+      )}
 
       <View style={styles.nameContainer}>
         <Text style={globalStyles.headerText}>Hi</Text>
         <Text style={globalStyles.headerBoldText}>
-          {displayName !== '' ? ' ' + displayName.split(' ')[0] : null},
+          {displayName !== '' ? ' ' + displayName.split(' ')[0] : null}
         </Text>
+        <Text style={globalStyles.headerText}>,</Text>
       </View>
 
       <View style={styles.welcomeTextContainer}>
@@ -136,11 +135,9 @@ const SearchScreen = ({ navigation }) => {
         decelerationRat={0.8}
         data={filteredResults}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => {
-          return (
-            <RecommendedCard item={item.data} onPress={goToCitiesScreen} />
-          );
-        }}
+        renderItem={({ item }) => (
+          <RecommendedCard item={item.data} onPress={goToCitiesScreen} />
+        )}
       />
     </View>
   );
