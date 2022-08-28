@@ -228,7 +228,7 @@ const addCurrencies = (dispatch) => () => {
     .get(bnrLink)
     .then((response) => response.data)
     .then((response) => {
-      parseString(response, function (err, result) {
+      parseString(response, function (_err, result) {
         const rates = result.DataSet.Body[0].Cube[0].Rate;
         rates.forEach((rate) => {
           currenciesList.forEach((currency) => {
@@ -249,7 +249,6 @@ const addCurrencies = (dispatch) => () => {
     })
     .catch((err) => {
       console.log(err);
-      dispatch({ type: 'add_currencies', payload: [] });
     });
 };
 

@@ -53,7 +53,6 @@ const AccountManagementScreen = () => {
             onLongPress={() => {
               if (item.title.toLowerCase().includes('async'.toLowerCase())) {
                 const clear = async () => {
-                  // await AsyncStorage.removeItem("");
                   await AsyncStorage.clear();
                 };
                 try {

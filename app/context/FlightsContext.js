@@ -126,7 +126,6 @@ const getCountriesBySearchType = (dispatch) => async () => {
     snapshot.forEach((doc) => {
       list.push({ id: doc.id, data: doc.data() });
     });
-    console.log('list[0]', list[0]);
     dispatch({ type: 'add_recommended_countries', payload: list });
 
     list = [];
@@ -190,9 +189,6 @@ const addPriceToCountries =
     planAhead,
     userCoords
   ) => {
-    console.log('recommendedCountries', recommendedCountries);
-    console.log('popularDestinations', popularDestinations[0]);
-    console.log('exploreEverywhere', exploreEverywhere[0]);
     exploreEverywhere.forEach((element) => {
       element.data.price = generatePrice(
         1,
@@ -218,7 +214,6 @@ const addPriceToCountries =
       );
     });
     recommendedCountries.sort(sorter);
-    console.log('sorted recommended', recommendedCountries);
     dispatch({
       type: 'add_recommended_countries',
       payload: recommendedCountries

@@ -56,17 +56,16 @@ const SplashScreen = () => {
 
   useEffect(() => {
     (async () => {
-      await new Promise((res) => {
-        getCountriesBySearchType();
-        res();
-      });
+      await checkIsFirstTime();
+      await tryLocalSignIn();
+      await getCountriesBySearchType();
+      getDate();
     })();
+  }, []);
+
+  useEffect(() => {
     const getData = async () => {
       try {
-        await checkIsFirstTime();
-        await tryLocalSignIn();
-        getDate();
-
         await Promise.all([
           addCurrencies(),
           getUserRating(),
